@@ -21,10 +21,15 @@ else
     make CC=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
          CXX=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
          LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+         CPPFLAGS=-fsanitize=undefined,address \
+         CFLAGS=-fsanitize=undefined,address \
+         CXXFLAGS=-fsanitize=undefined,address \
+         LDFLAGS=-fsanitize=undefined,address \
          -j16
     /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
-         ../cms_transform_fuzzer.cc ../../aflpp_driver.cc \
-         -I include src/.libs/liblcms2.a -o exec_lcms
+         -fsanitize=undefined,address ../cms_transform_fuzzer.cc \
+         ../../aflpp_driver.cc -I include src/.libs/liblcms2.a \
+         -o exec_lcms
 fi
 cp exec_lcms $target_exec
 

@@ -13,7 +13,11 @@ if [ $1 == 1 ]
 then
     ./fuzz.py build stream_decompress
 else
-    ./fuzz.py build --cc /home/cmr/my_codeql/AFLplusplus/afl-clang-fast --cxx /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ stream_decompress
+    ./fuzz.py build \
+        --cc /home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+        --cxx /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
+        --enable-asan --enable-ubsan \
+        stream_decompress
 fi
 cp stream_decompress $target_exec
 

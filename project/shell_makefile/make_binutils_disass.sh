@@ -15,7 +15,7 @@ echo "over"
 
 if [ $1 == 1 ]
 then
-    make -j16
+    make -j1
     mkdir -p fuzz &&  cp ../fuzz_*.c fuzz/  &&  cd fuzz
     gcc -I ../include -I ../bfd -I ../opcodes -c fuzz_disassemble.c \
          -o fuzz_disassemble.o
@@ -26,12 +26,18 @@ else
     make CC=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
          CXX=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
          LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
-         -j16
+         CPPFLAGS=-fsanitize=undefined,address \
+         CFLAGS=-fsanitize=undefined,address \
+         CXXFLAGS=-fsanitize=undefined,address \
+         LDFLAGS=-fsanitize=undefined,address \
+         -j1
     mkdir -p fuzz &&  cp ../fuzz_*.c fuzz/  &&  cd fuzz
     /home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+          -fsanitize=undefined,address \
          -I ../include -I ../bfd -I ../opcodes -c fuzz_disassemble.c \
          -o fuzz_disassemble.o
     /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
+          -fsanitize=undefined,address \
          fuzz_disassemble.o -o fuzz_disassemble ../../../aflpp_driver.a \
          ../opcodes/libopcodes.a ../bfd/libbfd.a ../libiberty/libiberty.a \
          ../zlib/libz.a -ldl

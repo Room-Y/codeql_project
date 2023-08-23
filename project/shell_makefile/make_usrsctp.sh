@@ -21,11 +21,20 @@ then
 else
     make CC=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
          CXX=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
-         LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast 
+         LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+         CPPFLAGS=-fsanitize=undefined,address \
+         CFLAGS=-fsanitize=undefined,address \
+         CXXFLAGS=-fsanitize=undefined,address \
+         LDFLAGS=-fsanitize=undefined,address
     cd fuzzer
     pwd
-    /home/cmr/my_codeql/AFLplusplus/afl-clang-fast -DFUZZING_STAGE=0 -I . -I ../usrsctplib/ -c fuzzer_connect.c -o fuzzer_connect.o 
-    /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ -o fuzz_connect fuzzer_connect.o ../../../aflpp_driver.a ../usrsctplib/libusrsctp.a -lpthread
+    /home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+        -fsanitize=undefined,address -DFUZZING_STAGE=0 \
+        -I . -I ../usrsctplib/ -c fuzzer_connect.c -o fuzzer_connect.o 
+    /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
+        -fsanitize=undefined,address -o fuzz_connect \
+        fuzzer_connect.o ../../../aflpp_driver.a \
+        ../usrsctplib/libusrsctp.a -lpthread
 fi
 cp fuzz_connect $target_exec
 

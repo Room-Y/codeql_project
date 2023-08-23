@@ -23,9 +23,14 @@ else
     make CC=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
          CXX=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
          LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+         CPPFLAGS=-fsanitize=undefined,address \
+         CFLAGS=-fsanitize=undefined,address \
+         CXXFLAGS=-fsanitize=undefined,address \
+         LDFLAGS=-fsanitize=undefined,address \
          all
     /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
-         -std=c++11 -I include ../libxml2_xml_reader_for_file_fuzzer.cc \
+         -fsanitize=undefined,address -std=c++11 \
+         -I include ../libxml2_xml_reader_for_file_fuzzer.cc \
          ../../aflpp_driver.cc -o exec_libxml2_reader .libs/libxml2.a
 fi
 cp exec_libxml2_reader $target_exec

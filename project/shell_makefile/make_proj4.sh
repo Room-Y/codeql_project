@@ -21,9 +21,14 @@ else
     make CC=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
          CXX=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
          LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+         CPPFLAGS=-fsanitize=undefined,address \
+         CFLAGS=-fsanitize=undefined,address \
+         CXXFLAGS=-fsanitize=undefined,address \
+         LDFLAGS=-fsanitize=undefined,address \
          -j16
     /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
-         -std=c++11 -I src test/fuzzers/standard_fuzzer.cpp src/.libs/libproj.a \
+         -fsanitize=undefined,address -std=c++11 \
+         -I src test/fuzzers/standard_fuzzer.cpp src/.libs/libproj.a \
          ../../aflpp_driver.cc -o exec_proj -lpthread
 fi
 cp exec_proj $target_exec

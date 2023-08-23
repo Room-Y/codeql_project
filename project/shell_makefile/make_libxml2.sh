@@ -21,9 +21,14 @@ else
     make CC=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
          CXX=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
          LD=/home/cmr/my_codeql/AFLplusplus/afl-clang-fast \
+         CPPFLAGS=-fsanitize=undefined,address \
+         CFLAGS=-fsanitize=undefined,address \
+         CXXFLAGS=-fsanitize=undefined,address \
+         LDFLAGS=-fsanitize=undefined,address \
          -j16
     /home/cmr/my_codeql/AFLplusplus/afl-clang-fast++ \
-         -std=c++11 ../target.cc ../../aflpp_driver.cc -I include .libs/libxml2.a \
+         -fsanitize=undefined,address -std=c++11 \
+         ../target.cc ../../aflpp_driver.cc -I include .libs/libxml2.a \
          -o exec_libxml2
 fi
 cp exec_libxml2 $target_exec

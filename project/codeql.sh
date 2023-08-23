@@ -2,12 +2,12 @@
 
 set -e
 
-# project_array=(curl)
 # project_array=(binutils_disass)
 project_array=(curl)
+# project_array=(lcms)
 ./codeql_afl_enable.sh
 
-# project_array=(zstd lcms libpcap libxml2 libxml2_reader proj4 usrsctp curl binutils_cxx binutils_disass)
+# project_array=(zstd usrsctp proj4 libxml2 libxml2_reader libpcap lcms curl binutils_cxx binutils_disass)
 
 for proj in ${project_array[@]}
 do
