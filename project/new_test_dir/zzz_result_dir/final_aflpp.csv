@@ -1,0 +1,11 @@
+,reach,corpus,crashes
+lcms,110,103,107
+libpcap,109,102,85
+libxml2_reader,1324,891,1298
+libxml2,411,404,397
+proj4,297,227,285
+usrsctp,530,463,516
+zstd,186,146,186
+curl,385,384,358
+binutils_cxx,92,70,83
+binutils_disass,37,28,15

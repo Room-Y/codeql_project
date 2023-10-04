@@ -1,0 +1,29 @@
+binutils_cxx: 
+4693  363
+ 
+binutils_disass: 
+4724  331
+ 
+zstd: 
+96  218
+ 
+usrsctp: 
+164  92
+ 
+proj4: 
+51  94
+ 
+libxml2: 
+604  216
+ 
+libxml2_reader: 
+458  243
+ 
+libpcap: 
+45  84
+ 
+lcms: 
+51  62
+ 
+curl: 
+146  256

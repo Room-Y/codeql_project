@@ -1,0 +1,11 @@
+,new_json_test_,new_json_seed_,new_json_remove_
+lcms,1217,1120,1118
+libpcap,353,345,278
+libxml2_reader,6144,5671,5441
+libxml2,6763,6550,6428
+proj4,745,730,627
+usrsctp,1656,1284,1208
+zstd,609,561,467
+curl,2274,2100,2068
+binutils_cxx,14680,14672,14642
+binutils_disass,14680,14680,14680
