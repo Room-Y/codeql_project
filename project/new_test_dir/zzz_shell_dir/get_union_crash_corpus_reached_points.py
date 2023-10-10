@@ -43,25 +43,46 @@ if __name__ == "__main__":
     crashes_f.close()
     
     # 获取合并的db
-    for fuzzn in fuzzname:
-        union_db[fuzzn] = {}
-        for proj in list_proj_pd:
-            union_db[fuzzn][proj] = corpus_db[fuzzn][proj].union(crashes_db[fuzzn][proj])
-    f = open('zzz_result_dir/union_corpus_crashes_ids_txt', 'w')
-    f.write(str(union_db))
-    f.close()
+    # for fuzzn in fuzzname:
+    #     union_db[fuzzn] = {}
+    #     for proj in list_proj_pd:
+    #         union_db[fuzzn][proj] = corpus_db[fuzzn][proj].union(crashes_db[fuzzn][proj])
+    # f = open('zzz_result_dir/corpus_union_crashes_ids_txt', 'w')
+    # f.write(str(union_db))
+    # f.close()
+
+    union_f = open('zzz_result_dir/corpus_union_crashes_ids_txt','r')
+    union_db = eval(union_f.read())
+    union_f.close()
 
     list_db = [union_db, corpus_db, crashes_db]
     list_dbname = ["reach", "corpus", "crashes"]
 
-    for fuzzn in fuzzname:
-        list_summary = numpy.zeros([len(list_proj_pd), len(list_db)])
-        for idxp, proj in enumerate(list_proj_pd):
-            for idxd, db in enumerate(list_db):
-                list_summary[idxp][idxd] = len(db[fuzzn][proj])
-        csv = pd.DataFrame(columns=list_dbname, index=list_proj_pd, data=list_summary).astype(int)
-        csv.to_csv("zzz_result_dir/final_" + fuzzn + ".csv")
+    # 四种fuzz的corpus，reach，crash结果
+    # for fuzzn in fuzzname:
+    #     list_summary = numpy.zeros([len(list_proj_pd), len(list_db)])
+    #     for idxp, proj in enumerate(list_proj_pd):
+    #         for idxd, db in enumerate(list_db):
+    #             list_summary[idxp][idxd] = len(db[fuzzn][proj])
+    #     csv = pd.DataFrame(columns=list_dbname, index=list_proj_pd, data=list_summary).astype(int)
+    #     csv.to_csv("zzz_result_dir/final_" + fuzzn + ".csv")
         
+    # 总的结果
+    print(len(union_db))
+    print(type(union_db))
+    print(len(union_db["honggfuzz"]))
+    print(type(union_db["honggfuzz"]))
+    print(type(union_db["honggfuzz"]["lcms"]))
+
+    list_summary = numpy.zeros([len(list_proj_pd), len(list_db)])
+    for i, proj in enumerate(list_proj_pd):
+        for j, db in enumerate(list_db):
+            s = set()
+            for fuzz in fuzzname:
+                s = s.union(db[fuzz][proj])
+            list_summary[i][j] = len(s)
+    csv = pd.DataFrame(columns=list_dbname, index=list_proj_pd, data=list_summary).astype(int)
+    csv.to_csv("zzz_result_dir/final_fuzz_sum.csv")
 
 
 
